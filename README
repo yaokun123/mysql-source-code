@@ -1,2 +1,13 @@
 ## 1、mysql的入口函数为sql/mysqld.cc文件的mysqld_main方法
 
+## 2、mysql的解析函数为sql/sql_parse.cc文件的mysql_parse方法
+
+## 3、mysql的执行命令函数为sql/sql_parse.cc文件的mysql_execute_command方法
+### 3.1、打印线程命令：p thd->query()
+### 3.1、执行命令的关键点
+res= lex->m_sql_cmd->execute(thd);
+Sql_cmd_dml::execute -> Sql_cmd_dml::execute_inner
+JOIN::optimize -> JOIN::make_join_plan -> JOIN::extract_func_dependent_tables -> join_read_const_table
+-> read_const -> handler::ha_index_read_idx_map -> handler::index_read_idx_map -> handler::index_read_map
+-> ha_innobase::index_read -> row_search_mvcc -> sel_set_rec_lock -> lock_clust_rec_read_check_and_lock
+-> lock_rec_lock
