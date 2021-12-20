@@ -1,0 +1,2 @@
+## 1、mysql的入口函数为sql/mysqld.cc文件的mysqld_main方法
+
